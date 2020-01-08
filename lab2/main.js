@@ -21,7 +21,7 @@ function parseN() {
 
 function checkNr() {
     if (isPerfect(parseDataNr())) {
-        alert('este perfect');
+        alert('este perfect!');
     } else {
         alert('nu este perfect!')
     }
@@ -50,6 +50,7 @@ function checkN() {
     let i = 1;
     let nr = 1;
     let count = parseN();
+    clearTextArea();
     while (i <= count) {
         nr++;
         if (isPerfect(nr) && nr !== 1) {
