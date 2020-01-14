@@ -1,64 +1,73 @@
-document.getElementById("nr_but").addEventListener("click", checkNr);
-document.getElementById("interv_but").addEventListener("click", checkInterv);
-document.getElementById("nr_n").addEventListener("click", checkN);
+document.getElementById("check_number_but").addEventListener("click", () => {
+    checkNumber();
+});
+document.getElementById("interval_but").addEventListener("click", () => {
+    checkInterval();
+});
+document.getElementById("first_numbers_but").addEventListener("click", () => {
+    showResult('first_numbers_result', 'wait...');
+    setTimeout(function () {
+        getFirstNumbers();
+    }, 1)
+    
+});
 document.getElementById("max").addEventListener("click", checkMax);
 
-function parseDataNr() {
-    return (document.getElementById("nr_id").value);
-}
 
-function parseDataInterv_1() {
-    return (document.getElementById("interv_1").value);
-}
-
-function parseDataInterv_2() {
-    return (document.getElementById("interv_2").value);
-}
-
-function parseN() {
-    return (document.getElementById("n_3").value);
-}
-
-function checkNr() {
-    if (isPerfect(parseDataNr())) {
-        alert('este perfect!');
-    } else {
-        alert('nu este perfect!')
-    }
-}
+const getNumber = (inputId) => {
+    return document.getElementById(inputId).value
+};
 
 function isPerfect(x) {
-    let aux = 0;
+    if(x === 0) {
+        return false;
+    }
+    let dividersSum = 0;
     for (let i = 1; i <= x / 2; i++) {
         if (x % i === 0) {
-            aux += i;
+            dividersSum += i;
         }
     }
-    return (aux == x && aux !== 0);
+    return dividersSum === x;
 }
 
-function checkInterv() {
-    clearTextArea();
-    for (let i = parseDataInterv_1(); i < parseDataInterv_2(); i++) {
-        if (isPerfect(i) && i !== 1) {
-            writeToTXT(i);
-        }
-    }
-}
+const checkNumber = () => {
+    showNumberResult(isPerfect(getNumber('number')));
+};
 
-function checkN() {
-    let i = 1;
-    let nr = 1;
-    let count = parseN();
-    clearTextArea();
-    while (i <= count) {
-        nr++;
-        if (isPerfect(nr) && nr !== 1) {
-            writeToTXT(nr);
-            i++;
+const showNumberResult = (isPerfect) => {
+    document.getElementById('number_is_perfect_result').style.display = isPerfect?'block': 'none';
+    document.getElementById('number_not_perfect_result').style.display = isPerfect?'none': 'block';
+};
+
+const checkInterval = () => {
+    const perfectNumbers = [];
+    for (let i = Math.max(2, getNumber('value_from')); i < getNumber('value_to'); i++) {
+        if (isPerfect(i)) {
+            perfectNumbers.push(i);
         }
     }
-}
+    showResult('interval_result', perfectNumbers.join(", "));
+};
+
+const showResult = (elementID, result) => {
+    document.getElementById(elementID).innerHTML = result;
+};
+
+const getFirstNumbers = () => {
+    const perfectNumbers = [];
+    let founded = 0;
+    const needToFind = getNumber('first_numbers_count');
+    let i = 6;
+    while (founded < needToFind && i < 100000) {
+        if (isPerfect(i)) {
+            perfectNumbers.push(i);
+            founded++;
+        }
+        i++;
+    }
+    showResult('first_numbers_result', perfectNumbers.join(", "));
+};
 
 function checkMax() {
     for (let i = Number.MAX_VALUE; i < 0; i--) {
@@ -67,13 +76,4 @@ function checkMax() {
             break;
         }
     }
-}
-
-function writeToTXT(i) {
-    let init = document.getElementById("number_count").innerHTML;
-    document.getElementById("number_count").innerHTML = init + ' ' + i;
-}
-
-function clearTextArea() {
-    document.getElementById("number_count").innerHTML = '';
 }

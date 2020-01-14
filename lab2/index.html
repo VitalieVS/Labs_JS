@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
-<input type="number" id="nr_id">
-<button id="nr_but">Daca nr este perfect</button>
-<h2>intervalul...</h2>
-1<input type="number" id="interv_1">
-2<input type="number" id="interv_2">
-<br>
-<button id="interv_but">Numerele din interval perfecte</button>
-<br>
-<textarea rows="4" cols="50" id="number_count"></textarea>
-<br>
-N numere<input type="number" id="n_3">
-<button id="nr_n">Primele n nr</button>
-<button id="max">Nr maximal</button>
+    <h2>Verificarea unui numar daca este perfect</h2>
+    <input type="number" id="number">
+    <button id="check_number_but">Verifica</button>
+    <span id="number_is_perfect_result" style="color: green; display: none">Perfect</span>
+    <span id="number_not_perfect_result" style="color: red; display: none">Not perfect</span>
 
+    <h2>Gasirea numerelor perfecte din intervalul dat</h2>
+    1<input type="number" id="value_from">
+    2<input type="number" id="value_to">
+    <br>
+    <button id="interval_but">Cauta</button>
+    <br>
+    <span id="interval_result"></span>
+    <br>
 
-<script src="main.js"></script>
+    <h2>Primele n numere perfecte</h2>
+    N numere<input type="number" id="first_numbers_count">
+    <button id="first_numbers_but">Cauta</button>
+    <span id="first_numbers_result"></span>
+
+    <button id="max">Nr maximal</button>
+
+    <script src="main.js"></script>
 </body>
 </html>
